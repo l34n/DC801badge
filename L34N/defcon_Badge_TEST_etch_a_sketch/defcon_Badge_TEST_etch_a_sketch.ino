@@ -217,8 +217,25 @@ void loop()
       int joystick_x;  
       int joystick_y;  
       int select;  
-      joystick_x = map(analogRead(joystick_xPin), 200, 700, 15, 0);  
-      joystick_y = map(analogRead(joystick_yPin), 300, 800, 0, 15);  
+      
+      joystick_x = map(analogRead(joystick_xPin), 250, 700, 15, 0);  
+      joystick_y = map(analogRead(joystick_yPin), 200, 800, 0, 15);  
+      if (joystick_x < 0)
+      {
+        joystick_x = 0;
+      }
+      if (joystick_y < 0)
+      {
+        joystick_y = 0;
+      }
+      if (joystick_x > 15)
+      {
+        joystick_x = 15;
+      }
+      if (joystick_y > 15)
+      {
+        joystick_y = 15;
+      }
      select = !digitalRead(selectPin);  
       if((oldX != joystick_x) ||  
           (oldY != joystick_y) ||  
