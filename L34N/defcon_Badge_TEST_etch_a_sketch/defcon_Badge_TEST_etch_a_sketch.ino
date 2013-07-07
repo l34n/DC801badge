@@ -3,7 +3,10 @@
 //DONE: Replace Arduino digitalWrites with direct writes to ports (for speed!)
   //digitalWrite code: about 10ms. Direct writes < 3ms!
 
-
+#include "ClickButton.h"
+int function = 0;
+const int buttonPin1 = 7;
+ClickButton button1(buttonPin1, LOW, CLICKBTN_PULLUP);
 
 //#define BUZZER A4            //PF1
 #define COL_DATA 10          //PB6
@@ -155,9 +158,9 @@ void writeRow(int data)
 }
 void reset(int a) //reset all LEDs to 0 or 1
 {
-  for(int i = 0; i < 10; i++)
+  for(int i = 0; i < 16; i++)
   {
-     for(int j = 0; j < 10; j++)
+     for(int j = 0; j < 16; j++)
      {
        frameBuffer[i][j] = a;
      }
@@ -231,20 +234,26 @@ void loop()
            oldX = joystick_x;  
            oldY = joystick_y;  
            oldSelect = select;  
-           if(0 <= joystick_x < 16 && 0 <= joystick_y < 16)
+           if(0 <= joystick_x && joystick_x < 16 && 0 <= joystick_y && joystick_y < 16)
            {  
-             reset(1);
+             //reset(1);
              frameBuffer[joystick_y][joystick_x] = 0;
            }
       }  
-     delay(10);  
+     //delay(10);  
     }
   
-/*  if(millis() > lastTime + 1000)
-  {
-    lastTime = millis();
-    Serial.print("hello world \n");
-    invert();
-  }
-*/
+  button1.Update();
+
+  if (button1.click != 0) function = button1.click;
+  
+  // Toggle LED on single clicks
+  if(button1.click == 1) reset(1);
+  
+//  if(millis() > lastTime + 1000)
+//  {
+//    lastTime = millis();
+//    //invert();
+//  }
+
 }
