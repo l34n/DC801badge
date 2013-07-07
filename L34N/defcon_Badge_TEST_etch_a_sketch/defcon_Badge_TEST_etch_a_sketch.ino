@@ -219,7 +219,7 @@ void loop()
       int select;  
       
       joystick_x = map(analogRead(joystick_xPin), 250, 700, 15, 0);  
-      joystick_y = map(analogRead(joystick_yPin), 200, 800, 0, 15);  
+      joystick_y = map(analogRead(joystick_yPin), 300, 800, 0, 15);  
       if (joystick_x < 0)
       {
         joystick_x = 0;
@@ -257,7 +257,7 @@ void loop()
              frameBuffer[joystick_y][joystick_x] = 0;
            }
       }  
-     //delay(10);  
+     delay(10);  
     }
   
   button1.Update();
